@@ -1,4 +1,7 @@
 package za.ac.cput.repository;
 
-public interface StudentRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import za.ac.cput.domain.Student;
+
+public interface StudentRepository extends JpaRepository<Student, String> {
 }
