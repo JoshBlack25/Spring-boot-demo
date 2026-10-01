@@ -1,65 +1,95 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
+import za.ac.cput.domain.valueObject.Name;
 
 @Entity
-@Table(name="customer")
 public class Customer {
 
+    //  Variables
     @Id
-    private String customerId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int customerId;
 
     @Embedded
-    private Person person;
+    private Name name;
 
-    private double credit;
+    private String email;
+    private String mobile;
 
-    protected Customer() {
+    //  Constructors
+    protected Customer(){
     }
 
     private Customer(Builder builder){
         this.customerId = builder.customerId;
-        this.person = builder.person;
-        this.credit = builder.credit;
+        this.name = builder.name;
+        this.email = builder.email;
+        this.mobile = builder.mobile;
     }
 
+    //  Getters
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    //  toString
     @Override
     public String toString() {
         return "Customer{" +
-                "customerId='" + customerId + '\'' +
-                ", person=" + person +
-                ", credit=" + credit +
+                "customerId=" + customerId +
+                ", name=" + name +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
                 '}';
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public double getCredit() {
-        return credit;
-    }
-
     public static class Builder{
-        private String customerId;
-        private Person person;
-        private double credit;
+        private int customerId;
+        private Name name;
+        private String email;
+        private String mobile;
 
-        public Builder setCustomerId(String customerId) {
+        public Builder setCustomerId(int customerId) {
             this.customerId = customerId;
             return this;
         }
 
-        public Builder setPerson(Person person) {
-            this.person = person;
+        public Builder setName(Name name) {
+            this.name = name;
             return this;
         }
 
-        public Builder setCredit(double credit) {
-            this.credit = credit;
+        public Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder setMobile(String mobile) {
+            this.mobile = mobile;
+            return this;
+        }
+
+        //  copy method
+        public Builder copy(Customer customer){
+            this.customerId = customer.customerId;
+            this.name = customer.name;
+            this.email = customer.email;
+            this.mobile = customer.mobile;
+
             return this;
         }
 
